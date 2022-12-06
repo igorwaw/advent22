@@ -7,11 +7,11 @@
 #define GROUP2SIZE 14
 
 bool no_repeat_in_group(char* buf, int size) {
-	printf("Checking group: %s ",buf);
+	//printf("Checking group: %s ",buf);
     for (int i=0; i<size; ++i) {
         for (int j=i+1;j<size;++j) {
-            if (buf[j]==buf[i]) { // repeat found
-                printf(" repeat found at %d\n",j);
+            if (*(buf+j)==*(buf+i)) { // repeat found
+                //printf(" repeat found at %d\n",j);
                 return false; 
             }
         }
@@ -46,8 +46,7 @@ int main() {
     fgets(buffer,filesize,fileptr);
  
     // look for transmission
-    for (int i=0; ;++i) {  // no boundary checking here!
-        bool found=false;        
+    for (int i=0; ;++i) {  // no boundary checking here!     
         if (i+GROUPSIZE>filesize) { // cannot make group
             printf("Reached EOF, group not found\n");
             return 2;
@@ -61,20 +60,19 @@ int main() {
 
     // look for message
     for (int i=0; ;++i) {  // no boundary checking here!
-        bool found=false;        
         if (i+GROUP2SIZE>filesize) { // cannot make group
             printf("Reached EOF, group not found\n");
             return 2;
         }
         strncpy(group2,buffer+i,GROUP2SIZE);
         if (no_repeat_in_group(group2,GROUP2SIZE)) {
-			printf("\nBegin transmission found at %d\n",i+GROUP2SIZE);
+			printf("\nBegin message found at %d\n",i+GROUP2SIZE);
 			break;
 		}
     }
 
 
-    // Clenup
+    // Cleanup
     free(buffer);
     fclose(fileptr);
     return 0;
