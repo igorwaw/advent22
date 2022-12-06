@@ -28,7 +28,6 @@ def check_contain(left,right):
 def check_overlap(left,right):
     leftmin,leftmax=make_range(left)
     rightmin,rightmax=make_range(right)
-#    if leftmax>=rightmin and leftmin<=rightmax:
     if leftmin<=rightmin and leftmax>=rightmin:
         return 1
     elif rightmax>=leftmin and rightmin<=leftmin:
