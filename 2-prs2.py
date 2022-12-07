@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import pprint
 
 INPUTFILE="2-input.txt"
 

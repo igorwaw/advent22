@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import pprint
 
 INPUTFILE="1-input.txt"
 
@@ -16,7 +15,6 @@ with open(INPUTFILE) as inputfile:
 			elf=elf+int(line)
 
 print ("Number of elves ", len(elves))
-#pprint.pprint(elves)
 
 elves.sort(reverse=True)
 print ("Most calories 1", elves[0])
