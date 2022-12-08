@@ -37,6 +37,15 @@ int count_visible(char* buf, int rows, int cols) {
     char cur_max; // will hold largest value (highest tree) seen in the iteration
     char c; // height of the current tree
 
+    /*
+    The code below counts from how many directions the tree is visible. It's 
+    quite inefficient for the task: there's really no need to store array of visible
+    trees. And we only need to check if it's visible from at least 1 direction.
+    In the hindsight, I should have used similar algorithm as in check_score
+    and skip further checks once I know the tree is visible from one direction.
+    But I thought a full list of visible trees might be useful for part2.
+    */
+
     // first and last row visible
     for (int j=0;j<=cols-1;++j) {
         add_visible(0,j);
@@ -48,14 +57,6 @@ int count_visible(char* buf, int rows, int cols) {
         add_visible(i,0);
         add_visible(i,cols-1);
     } 
-
-    /*
-    The code below counts from how many directions the tree is visible.
-    We only need to check if it's visible from at least 1 direction.
-    It's very inefficienet, there's really no need to store array of visible
-    trees. But I thought it might be useful for part2.
-    In the hindsight, I should have used similar algorithm as in check_score
-    */
 
     // begin iterate rows then columns
     for (int i=0; i<=rows-1; ++i) { // iterate rows
