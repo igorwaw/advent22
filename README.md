@@ -10,9 +10,12 @@ required because I felt like it, for others I went straight to the point.
 
 ![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue) ![C](https://img.shields.io/badge/C-C99-green)
 
-Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0, but it should work with any C compiler.
+Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0 and 12.2.0, but it should work with any C compiler.
 
-Task 2 requires Python 3.10 or higher because I used "match" statement. All other programs should work with any Python3 (tested with 3.6.8)
+Task 2 requires Python 3.10 or higher because I used "match" statement. All other programs should work with any Python3 (tested with 3.6.8 adn 3.10.8)
+
+Extra Python libraries:
+* treelib for task 7
 
 ## Tasks
 
