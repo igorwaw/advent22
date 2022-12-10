@@ -63,4 +63,9 @@ similar as in part 2: for every tree, try to check in each direction if it's vis
 
 #### 9. Rope Bridge
 
-At first I thought it was so easy that I decided to add visualization with pygame. Turned out that calculating tail position was prone to strange logic errors which meant it worked in almost all circumstances. At least, moving from part 1 to part 2 wasn't hard.
+At first I thought it was so easy that I decided to add visualization with pygame. Turned out that calculating tail position was prone to strange logic errors which meant it worked in ALMOST all circumstances. At least, moving from part 1 to part 2 wasn't hard.
+
+### 10. Cathode-Ray Tube
+
+That was so much easier than the previous 3 puzzles. Part 1 took only a few minutes, part 2 was a bit harder but not a challenge either. Still, I had
+some logic errors, mostly coming from not reading the instructions carefuly enough. All those commented out "print" commands are a result of this.
