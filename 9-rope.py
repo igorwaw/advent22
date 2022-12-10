@@ -3,22 +3,21 @@
 import pygame
 
 # constants
-#INPUTFILE="9-small.txt"
+#INPUTFILE="9-medium.txt"
 INPUTFILE="9-input.txt"
 WIDTH=1500
 HEIGHT=900
 ELSIZE=5 # size of the element on the screen
-FPS=10000 # how many animation frames / calculation steps per second
-NUMKNOTS=2
+FPS=5000 # how many animation frames / calculation steps per second
+NUMKNOTS=10 # number of knots, including head and tail
 
-# colors for current/old position of tail (red) and head (blue)
-color={ 'T': (255,0,0), 'oldT': (100,50,50), 'H': (0,0,255), 'oldH': (50,50,100) }
+# colors for current/old position of tail (red), head (blue), middle (purple)
+color={ 'T': (255,0,0), 'oldT': (100,50,50), 'H': (0,0,255), 'oldH': (50,50,100), 'M': (100,50,100), 'oldM': (100,50,100) }
 
 #global variables
 moves=[] # sequence of moves read from the input file
-visited=set() # stores coordinates of tail positions - assume start point is 0,0
-
-
+visited=set() # stores coordinates of tail positions
+prev_knot=[]
 
 ########## FUNCTIONS - TASK RELATED ################
 
@@ -29,35 +28,30 @@ def read_file(filename):
         for line in inputfile:
             direction,steps=line.rstrip().split()
             moves.append([direction,int(steps)])
-    moves.reverse() # so we can use it as stack
+    moves.reverse() # so we can use it as a stack
 
 def head_next_position(head_x, head_y):
-    if len(moves)==0: # end of moves, stay in place
-        return head_x, head_y
-    #print(moves[-1]) # debug
-    direction,steps=moves[-1]
-    if steps==1:
-        moves.pop()
-    else:
-        moves[-1][1]-=1  # that looks ugly! decrement number of steps in the last elment of the moves list
-    if direction=="R":
-        new_x=head_x+1
-        new_y=head_y
-    elif direction=="L":
-        new_x=head_x-1
-        new_y=head_y
-    elif direction=="D":
-        new_x=head_x
-        new_y=head_y-1
-    elif direction=="U":
-        new_x=head_x
-        new_y=head_y+1    
+    new_x, new_y = head_x, head_y # starting point for calculations: old position
+    if len(moves)!=0: # when there are no moves, stay in place
+        direction,steps=moves[-1]
+        if steps==1:
+            moves.pop()
+        else:
+            moves[-1][1]-=1  # that looks ugly! decrement number of steps in the last element of the moves list
+        if direction=="R":
+            new_x+=1
+        elif direction=="L":
+            new_x-=1
+        elif direction=="D":
+            new_y-=1
+        elif direction=="U":
+            new_y+=1    
     return new_x, new_y
 
 def tail_next_position(tail_x, tail_y, head_x, head_y):
     deltax=tail_x-head_x
     deltay=tail_y-head_y
-    new_x, new_y = tail_x, tail_y # starting point: old position
+    new_x, new_y = tail_x, tail_y # starting point for calculations: old position
     if abs(deltax)<=1 and abs(deltay)<=1: # distance 0 or 1, nothing to do
         pass
     elif deltax==0: # same column, different row
@@ -118,19 +112,32 @@ head_y=0
 tail_x=0
 tail_y=0
 read_file(INPUTFILE)
+for i in range(0,NUMKNOTS):
+    prev_knot.append((0,0))
 
 ################### MAIN LOOP  #############
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: running=False
 
+    #we still have old positions, last chance to draw them
     draw_element("oldH", head_x, head_y)
     draw_element("oldT", tail_x, tail_y)
+    # calculate and draw head
     head_x, head_y = head_next_position(head_x, head_y)
     draw_element("H", head_x, head_y)
+
+    # calculate further knots, first one should be relative to head
+    # all others relative to previous knot
+    
+    prev_knot[0]=head_x,head_y
     for i in range(1,NUMKNOTS):
-        tail_x, tail_y = tail_next_position(tail_x, tail_y, head_x, head_y)
-        draw_element("T", tail_x, tail_y)
+        tail_x, tail_y = tail_next_position(prev_knot[i][0], prev_knot[i][1], prev_knot[i-1][0], prev_knot[i-1][1])
+        prev_knot[i]=(tail_x,tail_y)
+        if i==NUMKNOTS-1:
+            draw_element("T", tail_x, tail_y)
+        else:
+            draw_element("M", tail_x, tail_y)
     visited.add((tail_x, tail_y)) # we can just add the position, set will only store new values
     numvisited=str(len(visited))
     write_below("Tail positions: "+numvisited)
