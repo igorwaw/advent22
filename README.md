@@ -10,9 +10,13 @@ required because I felt like it, for others I went straight to the point.
 
 ![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue) ![C](https://img.shields.io/badge/C-C99-green)
 
-Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0, but it should work with any C compiler.
+Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0 and 12.2.0, but it should work with any C compiler.
 
-Task 2 requires Python 3.10 or higher because I used "match" statement. All other programs should work with any Python3 (tested with 3.6.8)
+Task 2 requires Python 3.10 or higher because I used "match" statement. All other programs should work with any Python3 (tested with 3.6.8 and 3.10.8)
+
+Extra Python libraries:
+* treelib for task 7
+* pygame for task 9
 
 ## Tasks
 
@@ -22,7 +26,7 @@ Nothing special here, quick and dirty Python.
 
 #### 2. Rock Paper Scissors
 
-I can think of many ways to solve this. I went with the most naive one, reading the file line by line and doing a nested case or if for every line. Effective for a simple case like this.
+I can think of many ways to solve this. I went with the most naive one, reading the file line by line and doing a nested case/if for every line. Effective for a simple case like this.
 
 #### 3. Rucksack Reorganization
 
@@ -56,3 +60,7 @@ I chose an inefficient way for solving the first part: created another data stru
 data structure 4 times: left, right, top and bottom. It wasn't really neded, but I tried to guess what part 2 would be. Well, I was wrong, for part 2 I had to calculate a completely different
 score. This time I used a more efficient way, checking only parts of the forest for each tree and without allocationg more data structures. In the hindsight, I should have done something
 similar as in part 2: for every tree, try to check in each direction if it's visible, if it is - increment the visible counter and skip other directions.
+
+#### 9. Rope Bridge
+
+At first I thought it was so easy that I decided to add visualization with pygame. Turned out that calculating tail position was prone to strange logic errors which meant it worked in almost all circumstances. At least, moving from part 1 to part 2 wasn't hard.
