@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import heapq
 
 INPUTFILE="1-input.txt"
 
@@ -16,6 +17,5 @@ with open(INPUTFILE) as inputfile:
 
 print ("Number of elves ", len(elves))
 
-elves.sort(reverse=True)
-print ("Most calories 1", elves[0])
-print ("Most calories 3", elves[0]+elves[1]+elves[2])
+print ("Most calories 1", sum(heapq.nlargest(1, elves)))
+print ("Most calories 3", sum(heapq.nlargest(3, elves)))
