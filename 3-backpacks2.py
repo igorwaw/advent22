@@ -9,7 +9,7 @@ def get_next_group(filename, length):
             group = []
             for i in range(length):
                 try:
-                    group.append(next(inputfile).strip())
+                    group.append(set(next(inputfile).strip()))
                 except StopIteration:
                     return
                 if not group:
@@ -28,14 +28,11 @@ priosum=0
 
 for elf1,elf2,elf3 in get_next_group(INPUTFILE,3):
     groupcount+=1
-    set1=set(elf1)
-    set2=set(elf2)
-    set3=set(elf3)
-    commonset = set1 & set2 & set3
+    commonset = elf1 & elf2 & elf3
     commonchar=next(iter(commonset)) # ugly way to extract element from 1-element set
     priority=calculate_priority(commonchar)
     priosum+=priority
-    print("Group:", groupcount, "common: ", commonchar, "priority: ", priority)
+    #print("Group:", groupcount, "common: ", commonchar, "priority: ", priority)
 
 print("--------------------------")
 print("Number of groups: ", groupcount, "Total prio: ", priosum)

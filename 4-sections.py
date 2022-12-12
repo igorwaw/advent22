@@ -19,7 +19,7 @@ def check_contain(left,right):
     rightmin,rightmax=make_range(right)
     if leftmin>=rightmin and leftmax<=rightmax:  # left contained in right
         return 1
-    elif rightmin>=leftmin and rightmax<=leftmax:
+    elif rightmin>=leftmin and rightmax<=leftmax: # right contained in left
         return 1
     else:
         return 0
@@ -45,7 +45,7 @@ for leftpack,rightpack in get_next_pair(INPUTFILE):
     overlap=check_overlap(leftpack,rightpack)
     contcount+=contain
     overlapcount+=overlap
-    print("Elf:", elfcount, "left:", leftpack, "right:", rightpack, "is contained: ", contain, "is overlapping: ", overlap)
+    #print("Elf:", elfcount, "left:", leftpack, "right:", rightpack, "is contained: ", contain, "is overlapping: ", overlap)
 
 print("--------------------------")
 print("Number of elves: ", elfcount, "total contains: ", contcount, "overlaps: ", overlapcount)

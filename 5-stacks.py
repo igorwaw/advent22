@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import pprint
-
 INPUTFILE="5-input.txt"
 NUMSTACKS=9
 
@@ -22,18 +20,16 @@ def readfile(filename):
 
 
 def read_moves(line):
-    print("Do moves: ",line)
+    #print("Do moves: ",line)
     global moves
     _,num,_,stack_from,_,stack_to=line.split()
     moves.append([int(num),int(stack_from)-1,int(stack_to)-1])
 
 
-
-
 def read_stacks(line):
         if '1' in line:
             return
-        print("Do stacks: ",line)
+        #print("Do stacks: ",line)
         global stacks
         for i in range(1,NUMSTACKS+1):
             try:
@@ -48,19 +44,17 @@ def do_moves_v1():
     global stacks
     for move in moves:
         num,stack_from,stack_to=move
-        print ("Moving ",num,"elements from", stacks[stack_from], "to", stacks[stack_to] )
+        #print ("Moving ",num,"elements from", stacks[stack_from], "to", stacks[stack_to] )
         for i in range(0,num):
-            element=stacks[stack_from].pop()
-            stacks[stack_to].append(element)
+            stacks[stack_to].append( stacks[stack_from].pop() )
 
 
 def do_moves_v2():
-    global stacks
     for move in moves:
         num,stack_from,stack_to=move
         tempstack=[]
         #print ("Moving ",num,"elements from", stacks[stack_from], "to", stacks[stack_to] )
-        for i in range(0,num):
+        for i in range(num):
             element=stacks[stack_from].pop()
             tempstack.append(element)
         tempstack.reverse()
@@ -72,18 +66,24 @@ def do_moves_v2():
 def give_answer():
     answer=""
     for i in range(0,NUMSTACKS):
-        answer+=stacks[i].pop()
-    print("The answer is: ", answer)
+        answer+=stacks[i].pop() 
+    return answer
 
 
 
-for i in range(0,NUMSTACKS):
-    stacks.append([])
+# part 1
+stacks=[ [] for i in range(NUMSTACKS) ]
 readfile(INPUTFILE)
-print("Stacks before")
-pprint.pprint(stacks)
-#pprint.pprint(moves)
+do_moves_v1()
+print("Part 1: ", give_answer())
+
+# part 2
+# clear data and read file again
+stacks.clear()
+stacks=[ [] for i in range(NUMSTACKS) ]
+moves.clear()
+readfile(INPUTFILE)
+
 do_moves_v2()
-print("Stacks after")
-pprint.pprint(stacks)
-give_answer()
+print("Part 2: ", give_answer())
+
