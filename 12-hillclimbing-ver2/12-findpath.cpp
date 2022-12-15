@@ -1,21 +1,38 @@
-#include "12-pathnode.h"
 #include "12-map.h"
 #include <vector>
 #include <algorithm>
+#include <memory>
+#include <utility>
 
-const char* filename="12-input.txt";
+const char* filename="12-small.txt";
 const int16_t max_level=35; // maximum tree depth
-int16_t shortest=max_level;
-bool routefound=false;
 
-void checkpath(int16_t maxlevel, std::shared_ptr<Map> map, std::shared_ptr<Pathnode> currentnode, std::vector<Mappoint> visited) {
-	if (currentnode->getdepth() == maxlevel) // maximum recusion reached
-		return;
-		
-	Mappoint p=currentnode->getcoords();
-	char current_elevation=map->getpoint(p);
-	visited.push_back(p); 
-	//std::cout<<"checking "<<p<<" elevation "<<current_elevation<<'\n';
+// node in route has location and direction (0-4)
+enum DIRECTION {notchecked, top, bottom, left, right};
+using routenode = std::pair<Mappoint,int16_t>;
+
+int checkpath(std::shared_ptr<Map> map, Mappoint startnode) {
+	std::vector<Mappoint> visited {}; // list of visited nodes
+	std::vector<routenode> to_check {};
+	
+	visited.push_back(startnode);
+	to_check.emplace_back(startnode, notchecked); 
+	
+	while (! to_check.empty() ) {
+		routenode current_node=to_check.back();
+		to_check.pop_back();
+		if (current_node.second==right) // all directions from this node were already checked
+			continue;
+		++current_node.second;
+		char current_elevation=map->getelevation(current_node.first);
+		std::cout<<"checking "<<current_node.first<<" elevation "<<current_elevation<<" direction "<<current_node.second<<'\n';
+	}
+	return -1; // route not found
+	
+	
+	
+	
+	/*
 	for (int i=0; i<4;++i) {
 		if (currentnode->child[i]!=nullptr) // already checked
 			continue;
@@ -56,6 +73,8 @@ void checkpath(int16_t maxlevel, std::shared_ptr<Map> map, std::shared_ptr<Pathn
 		else
 			checkpath( maxlevel, map, currentnode->child[i], visited); // recursively check new node
 	}
+	*/
+	
 }
 
 
@@ -65,21 +84,13 @@ int main() {
 	std::shared_ptr<Map> map(new Map(filename) );
 	map->print(true);
 	
-	Mappoint start=map->getstart();
-	// set start of path
-	std::shared_ptr<Pathnode> startpoint( new Pathnode( start ) );
-	// create marker for blocked path
-	//std::shared_ptr<Pathnode> blocked( new Pathnode( start, 'B' ) );
+	Mappoint start=map->getstart(); // set start of path
+	int shortest=checkpath(map, start);
 	
-	checkpath(max_level, map, startpoint, std::vector<Mappoint> {});
-	
-	if (routefound) {
-		std::cout<<"####################################\n\n";
+	if (shortest>0)
 		std::cout<<" Found shortest route of length "<<shortest<<"\n\n";
-	}
 	else
 		std::cout<<"Shortest route not found, max length of "<<max_level<<" reached\n\n";
-	//startpoint->printtree();
 	
 	
 }
