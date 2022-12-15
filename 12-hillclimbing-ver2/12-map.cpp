@@ -16,7 +16,7 @@ void Map::print(bool full) {
 	if (full) {
 		for (int j=0;j<height;++j) {
 			for (int i=0;i<width;++i)  
-				std::cout<<getpoint(Mappoint(i,j));
+				std::cout<<getelevation(Mappoint(i,j));
 			std::cout<<'\n';
 		}
 		std::cout<<"----------------------------------\n";
@@ -61,14 +61,14 @@ Map::Map(const char* filename) {
 	// set start and end points
 	for (int16_t i=0;i<width;++i) {
 		for (int16_t j=0;j<height;++j) {
-			c=getpoint(Mappoint(i,j));
+			c=getelevation(Mappoint(i,j));
 			if (c=='S') {
-				setpoint(Mappoint(i,j),'a');
+				setelevation(Mappoint(i,j),'a');
 				start.x=i;
 				start.y=j;
 			}
 			if (c=='E') {
-				setpoint(Mappoint(i,j),'z');
+				setelevation(Mappoint(i,j),'z');
 				end.x=i;
 				end.y=j;
 			}

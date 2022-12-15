@@ -18,7 +18,7 @@ class Map {
 	  Map(const char*  filename);
 	  ~Map();
 	  void print(bool full=false);
-	  char getpoint(Mappoint p) {return *(mapbuffer+p.y*width+p.x); }
+	  char getelevation(Mappoint p) {return *(mapbuffer+p.y*width+p.x); }
 	  Mappoint getstart() { return start; }
 	  Mappoint getend() { return end; }
 	  int16_t getwidth() { return width; }
@@ -28,7 +28,7 @@ class Map {
 	  int16_t width, height;
 	  Mappoint start;
 	  Mappoint end;
-	  void setpoint(Mappoint p, char elevation) { *(mapbuffer+p.y*width+p.x) = elevation; };
+	  void setelevation(Mappoint p, char elevation) { *(mapbuffer+p.y*width+p.x) = elevation; };
 };
 
 
