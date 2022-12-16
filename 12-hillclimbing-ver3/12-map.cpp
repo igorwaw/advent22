@@ -23,11 +23,22 @@ void Map::print(bool full) {
 	}
 }
 
+void Map::print_dijkstra() {
+	std::cout<<"Map width: " <<+width<<" height "<<+height<<'\n';
+	std::cout<<"Starting point: " <<+start.x<<','<<+start.y;
+	std::cout<<"   Ending point: " <<+end.x<<','<<+end.y<<"\n\n";
+	for (int j=0;j<height;++j) {
+		for (int i=0;i<width;++i)  
+			printf("%04i ", getdistance(Mappoint(i,j)) );
+		std::cout<<'\n';
+	}
+
+}
 
 
 Map::~Map() {
 	delete mapbuffer;
-	
+	delete disbuffer;
 }
 
 
@@ -51,6 +62,7 @@ Map::Map(const char* filename) {
     //height can be calculated
     height=filesize/(width+1); // +1 for \n at the end of every line
     mapbuffer=new char[filesize];
+    disbuffer=new int16_t[filesize];
     char tempstring[width+1]; // +1 for \n at the end of every line
     for (int16_t i=0; i<height; ++i) {
 		fgets(tempstring,width+2,mapfile);
@@ -58,12 +70,14 @@ Map::Map(const char* filename) {
 	}
 	fclose(mapfile);
 	
-	// set start and end points
+	// set start and end points, initialize Dijkstra value
 	for (int16_t i=0;i<width;++i) {
 		for (int16_t j=0;j<height;++j) {
+			setdistance(Mappoint(i,j),max_d);
 			c=getelevation(Mappoint(i,j));
 			if (c=='S') {
 				setelevation(Mappoint(i,j),'a');
+				setdistance(Mappoint(i,j),0);
 				start.x=i;
 				start.y=j;
 			}
