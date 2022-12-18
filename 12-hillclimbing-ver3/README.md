@@ -1,6 +1,6 @@
 # 12. Hill Climbing Algorithm
 
-#### Version 1: Brute force
+###\\# Version 1: Brute force
 
 My first idea was to brute force the solution: create a tree of all possible paths from the starting point. How much data would that be?
 Every node can point to 4 further nodes (top, bottom, left and right), but in practice much less than that:
@@ -8,20 +8,22 @@ Every node can point to 4 further nodes (top, bottom, left and right), but in pr
 - some nodes would have children outside of the map,
 - some nodes would lead too high,
 - I also kept track of visited nodes not to visit them again.
+
 My guesstimate was each node would, on average, lead to between 1 or 2 other nodes. Closer to one 1 or 2? Well, that makes a big difference:
 - if it's close to 1, there's almost no increase in the tree breadth,
 - if it's close to 2, we get about 1000 nodes at level 10 (fine, that's nothing), 16 milion at level 24 (that's still managable), 4 billion at level 32 (uh oh)...
+
 So, I hoped it's closer to 1 and made sure my data structures were small. I used 16-bit integers and my code was more "C with classes" than a proper C++ - I used almost no standard library and only really needed C++ for some basic encapsulation.
 
 The solution worked fine for the sample data. For the full input, it worked for a few minutes and got terminated by the Out Of Memory Killer. OK, that wasn't a good idea.
 
 
-#### Version 2: A bit more subtle force
+## Version 2: A bit more subtle force
 
 All right, I don't need to keep all possible paths through the map, only those that lead to the end point. With that modification, my program was able to find the route from start to end - just not the shortest route.
 
 
-#### Version 3: Dijkstra algorithm
+## Version 3: Dijkstra algorithm
 
 Why am I trying to brute force anyway? After all, I learned about tree and graph searching algorithms back at the Uni. I haven't needed them for years and obviously wouldn't remeber them, but at least I know what to look for. I compared a few, [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) looked well suited for the task and easy to implement.
 
