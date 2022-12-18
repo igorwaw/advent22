@@ -19,6 +19,17 @@ void Map::print(bool full) {
 	}
 }
 
+std::vector<Mappoint> Map::getPointsByElevation(char elevation) {
+	std::vector<Mappoint> pointlist={};
+	for (int j=0;j<height;++j) {
+			for (int i=0;i<width;++i)  {
+				if (getelevation(Mappoint(i,j)) == elevation )
+					pointlist.push_back(Mappoint(i,j));
+			}
+	}
+	return pointlist;
+}
+
 void Map::print_dijkstra() {
 	std::cout<<"Map width: " <<+width<<" height "<<+height<<'\n';
 	std::cout<<"Starting point: " <<+start.first<<','<<+start.second;
@@ -41,7 +52,7 @@ Map::Map(const char* filename) {
 	height=mapbuffer.size(); 
 	width=mapbuffer[0].size(); // all lines have the same width
 
-	// initialize Dijkstra buffer
+	// initialize Dijkstra buffer with the default value
 	std::vector<int16_t>(tempvector);
 	for (int i=0; i<width; ++i)
 		tempvector.push_back(max_d);
@@ -57,12 +68,12 @@ Map::Map(const char* filename) {
 			c=getelevation(Mappoint(i,j));
 			if (c=='S') {
 				setelevation(Mappoint(i,j),'a');
-				setdistance(Mappoint(i,j),0);
 				start.first=i;
 				start.second=j;
 			}
 			if (c=='E') {
 				setelevation(Mappoint(i,j),'z');
+				setdistance(Mappoint(i,j),0);
 				end.first=i;
 				end.second=j;
 			}

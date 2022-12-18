@@ -12,6 +12,8 @@ required because I felt like it, for others I went straight to the point.
 
 Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0 and 12.2.0, but it should work with any C compiler.
 
+Task 2 solved with C++. I used C++11 standard. It also compiles as amended/experimental newer versions (14, 17 and 2a).
+
 Task 2 requires Python 3.10 or higher because I used "match" statement. Task 11: Python 3.9 or higher (math.lcm).
 All other programs should work with any Python3 (tested with 3.6.8 and 3.10.8)
 
@@ -84,3 +86,7 @@ The trick for part 2: as the author wrote, you need another way to keep your wor
 computer's integer variable can hold (some languages support big integers, Python included, but the operations on them are much slower). Now, we don't
 really need the exact value of the worry level. We only need to be able to perform every monkey's test - which means checking if the number is divisible
 by every monkey. So, that means every turn we can do modulo by least common multiple of all monkey's test values.
+
+#### 12. Hill Climbing Algorithm
+
+Dijkstra algorithm in C++. This was so far the most complicated, see the separate readme in the directory.

@@ -22,6 +22,7 @@ class Map {
 	  Mappoint getend() { return end; }
 	  int16_t getwidth() { return width; }
 	  int16_t getheight() { return height; }
+	  std::vector<Mappoint> getPointsByElevation(char elevation);
 	private:
 	  std::vector<std::string> mapbuffer;
 	  std::vector<std::vector<int16_t> > disbuffer;
