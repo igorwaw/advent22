@@ -1,6 +1,6 @@
 # 12. Hill Climbing Algorithm
 
-###\\# Version 1: Brute force
+## Version 1: Brute force
 
 My first idea was to brute force the solution: create a tree of all possible paths from the starting point. How much data would that be?
 Every node can point to 4 further nodes (top, bottom, left and right), but in practice much less than that:
