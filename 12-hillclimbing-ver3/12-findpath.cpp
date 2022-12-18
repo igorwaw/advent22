@@ -21,7 +21,7 @@ class Compare {
 
 
 
-int checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
+void checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
 	std::set<Mappoint> visited = {};
 	std::priority_queue<Dijspoint, std::vector<Dijspoint>, Compare> to_check = {};
 	std::set<Mappoint> to_check2 = {}; // priority queue doesn't support search, this set is used to protect from adding same element twice
@@ -31,7 +31,12 @@ int checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
 	int iterations=0;
 	while (!to_check.empty()) {
 		++iterations;
-		std::cout<<"Calculating distance, current iteration: "<<iterations<<'\n';
+		//std::cout<<"Calculating distance, current iteration: "<<iterations<<'\n';
+		if (iterations%100==0) { // print stats
+			std::cout<<"Current iteration: "<<iterations;
+			std::cout<<"  queue length: "<<to_check2.size();
+			std::cout<<"  visited: "<<visited.size()<<'\n';
+		}
 		if (iterations>maxiterations) break;
 		Dijspoint currentdijspoint=to_check.top();
 		to_check.pop();
@@ -40,11 +45,6 @@ int checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
 		to_check2.erase(currentpoint);
 		visited.insert(currentpoint);
 
-		if (currentpoint==map->getend()) {
-			int16_t distance=map->getdistance(currentpoint);
-			std::cout<<"FOUND ROUTE TO THE END - LENGTH "<<distance<<"\n";
-			//return distance;
-		}
 		for (int i=0; i<4;++i) {
 			Mappoint nextpoint=currentpoint;
 			switch(i) {
@@ -55,22 +55,22 @@ int checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
 			}
 			char current_elevation=map->getelevation(currentpoint);
 	
-			std::cout<<"checking path from "<<currentpoint.first<<','<<currentpoint.second<<" to "<<nextpoint.first<<','<<nextpoint.second<<'\n';
+			//std::cout<<"checking path from "<<currentpoint.first<<','<<currentpoint.second<<" to "<<nextpoint.first<<','<<nextpoint.second<<'\n';
 			if (nextpoint.first<0 or nextpoint.first>=map->getwidth() or nextpoint.second<0 or nextpoint.second>=map->getheight()) {// out of map, skip that direction
-				std::cout<<"    "<<nextpoint.first<<','<<nextpoint.second<<" is out of map, skipping\n";
+				//std::cout<<"    "<<nextpoint.first<<','<<nextpoint.second<<" is out of map, skipping\n";
 				continue;
 			}
 			char nextelevation=map->getelevation(nextpoint);
-			if (nextelevation-1 > current_elevation) {
-				std::cout<<"    new elevation ("<<nextelevation<<") is too high from current elevation ("<<current_elevation<<"), skipping\n";
+			if (current_elevation-1 > nextelevation) {
+				//std::cout<<"    too much elevation difference: new ("<<nextelevation<<") old ("<<current_elevation<<"), skipping\n";
 				continue;
 			}
-			//if( std::find(visited.begin(), visited.end(), nextpoint) != visited.end() ) {
+
 			if( visited.count(nextpoint) ) {
-				std::cout<<"    "<<nextpoint.first<<','<<nextpoint.second<<" already visited, skipping\n";
+				//std::cout<<"    "<<nextpoint.first<<','<<nextpoint.second<<" already visited, skipping\n";
 				continue;
 			}
-			std::cout<<"    "<<nextpoint.first<<','<<nextpoint.second<<" elevation "<<nextelevation<<" is possible route \n";
+			//std::cout<<"    "<<nextpoint.first<<','<<nextpoint.second<<" elevation "<<nextelevation<<" is possible route \n";
 			int16_t newdistance=map->getdistance(currentpoint) + 1;
 			if ( newdistance < map->getdistance(nextpoint) ) { // new distance is shorter than the old distance, update
 				map->setdistance(nextpoint, newdistance);
@@ -81,9 +81,6 @@ int checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
 			}
 		 }
 	}
-
-
-	return map->getdistance(map->getend());
 }
 
 
@@ -91,16 +88,31 @@ int checkpath(std::shared_ptr<Map> map, Mappoint startpoint) {
 int main() {
 	
 	std::shared_ptr<Map> map(new Map(filename) );
-	map->print(true);
-	map->print_dijkstra();
-	Mappoint start=map->getstart(); // set start of path
+	//map->print(true);
+	//map->print_dijkstra();
+	Mappoint start=map->getend(); // set start of path
 
-	auto shortest=checkpath(map, start);
-	map->print_dijkstra();
+	checkpath(map, start);
+	//map->print_dijkstra();
+
+	// part 1
+	auto shortest=map->getdistance(map->getstart());
 	if (shortest<max_d)
-		std::cout<<" Found shortest route of length "<<shortest<<"\n\n";
+		std::cout<<"\nPart 1: shortest route from start to end  has length "<<shortest<<'\n';
 	else
-		std::cout<<"Shortest route not found \n\n";
+		std::cout<<"\nPart 1: shortest route not found \n";
 	
-	
+	// part 2
+	auto list_a=map->getPointsByElevation('a');
+	auto shortest2=max_d;
+	for (auto &point: list_a) {
+		//std::cout<<point.first<<','<<point.second<<'\n';
+		auto distance=map->getdistance(point);
+		if (distance<shortest2)
+			shortest2=distance;
+	}
+	if (shortest2<max_d)
+		std::cout<<"Part 2: shortest route from any point with elevation 'a' to end has length "<<shortest2<<'\n';
+	else
+		std::cout<<"Part 2: shortest route not found \n";
 }
