@@ -63,5 +63,5 @@ So, now I have to find the shortest path not from a given start point, but any p
 - I checked that it gaves the same result for part 1,
 - then, I got a list of all points with elevation 'a',
 - iterated over it, read distance for all of them and found the smallest one.
-- 
+
 It took me days to write part 1, but only a few minutes to get to part 2.
