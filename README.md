@@ -8,7 +8,9 @@ required because I felt like it, for others I went straight to the point.
 
 ## Technology used
 
-![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue) ![C](https://img.shields.io/badge/C-C99-green)
+![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue) 
+![C](https://img.shields.io/badge/C-C99-green) 
+![C++](https://img.shields.io/badge/C++-C++11-green)
 
 Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0 and 12.2.0, but it should work with any C compiler.
 
