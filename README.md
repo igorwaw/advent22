@@ -14,7 +14,7 @@ required because I felt like it, for others I went straight to the point.
 
 Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0 and 12.2.0, but it should work with any C compiler.
 
-Task 2 solved with C++. I used C++11 standard. It also compiles as amended/experimental newer versions (14, 17 and 2a).
+Task 12 solved with C++. I used C++11 standard. It also compiles as amended/experimental newer versions (14, 17 and 2a).
 
 Task 2 requires Python 3.10 or higher because I used "match" statement. Task 11: Python 3.9 or higher (math.lcm).
 All other programs should work with any Python3 (tested with 3.6.8 and 3.10.8)
