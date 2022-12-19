@@ -95,7 +95,7 @@ Dijkstra algorithm in C++. This was so far the most complicated, see the separat
 
 #### 13. Distress Signal
 
-I'm now convinced that the Advent's author is a Python developer. Input data was exactly the format of Python list, so simply doing: eval(newline(strip())
+I'm now convinced that the Advent's author is a Python developer. Input data was exactly the format of Python list, so simply doing: eval(newline.strip())
 was enough to read the input. Then, the first part wasn't particularly hard either, and second was even easier. The key was to realise that I need to use a 3-value logic, eg.:
 * -1 means the left item is smaller
 * +1 means the right item is smaller
