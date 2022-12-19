@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 
-# constants
-from math import floor
 import sys
+
+# constants
 
 INPUTFILE="10-input.txt"
 #INPUTFILE="10-small.txt"
@@ -24,12 +24,12 @@ def get_strength(cycle,register):
 
 def drawpixel(cycle,register):
     global pixelbuf
-    row=floor((cycle-1)/SCREENWIDTH)
+    row=(cycle-1)//SCREENWIDTH
     col=(cycle-row*SCREENWIDTH)-1
     sprite=range(register-1,register+2)
     try:
         if col in sprite:
-            pixelbuf[row][col]='#'
+            pixelbuf[row][col]='█'
             #print(f"cycle {cycle}: drawing pixel at {row}x{col} sprite position {sprite}")
         #else:
             #print(f"cycle {cycle}: NOT drawing pixel at {row}x{col} sprite position {sprite}")
