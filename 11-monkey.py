@@ -9,7 +9,7 @@ Operation = Callable[[int], int]
 
 @dataclass
 class Monkey:
-    items: list[int]
+    items: 'list[int]'
     operation: str
     test: str
     truetarget: int
@@ -30,7 +30,7 @@ class Monkey:
         self.operation=lambda old: eval(opstring.split("=")[-1])
 
 
-def readfile(filename: str)  -> list[Monkey]:
+def readfile(filename: str)  -> 'list[Monkey]':
     monkeys: list[Monkey] = []
     monkey=Monkey()
     with open(filename) as inputfile:
@@ -59,7 +59,7 @@ def readfile(filename: str)  -> list[Monkey]:
     return monkeys
 
 
-def do_round(monkeys: list[Monkey], divisor: int, mod_lcm: int):
+def do_round(monkeys: 'list[Monkey]', divisor: int, mod_lcm: int):
     for monkey in monkeys:
         for item in monkey.items[:]: # need to operate over copy or remove would fail
             # monkey inspects the item and does operation
@@ -78,7 +78,7 @@ def do_round(monkeys: list[Monkey], divisor: int, mod_lcm: int):
             monkeys[target].add_item(newitem)
 
 
-def get_monkey_business(monkeys: list[Monkey]) -> int:
+def get_monkey_business(monkeys: 'list[Monkey]') -> int:
     businesslist=[monkey.inspections for monkey in monkeys]
     businesslist.sort(reverse=True)
     return businesslist[0] * businesslist [1]
