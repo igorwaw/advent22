@@ -92,3 +92,13 @@ by every monkey. So, that means every turn we can do modulo by least common mult
 #### 12. Hill Climbing Algorithm
 
 Dijkstra algorithm in C++. This was so far the most complicated, see the separate readme in the directory.
+
+#### 13. Distress Signal
+
+I'm now convinced that the Advent's author is a Python developer. Input data was exactly the format of Python list, so simply doing: eval(newline(strip())
+was enough to read the input. Then, the first part wasn't particularly hard either, and second was even easier. The key was to realise that I need to use a 3-value logic, eg.:
+* -1 means the left item is smaller
+* +1 means the right item is smaller
+* 0 means they are equal and I need to check the next item
+Part 2 was something completely different - it required sorting the packets. Incidentally, many sort functions expect a comparison function using
+exactly the logic above.
