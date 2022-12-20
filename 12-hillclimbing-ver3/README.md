@@ -48,11 +48,11 @@ I rewrote the program to proper, modern C++. No need to worry about the size of 
 - get the point with the shortest distance from the queue (this is why the priority queue is useful - it just keeps the required point on top)
 - add it to the list of visited nodes
 - check all 4 neighbours of the current point, each of them is a possible next point:
- * if it's outside of map or too high from the current elevation, skip it,
- * if it's already visited, skip it,
- * calculate the distance as: distance of the current point + 1
- * if the new next point's distance is smaller than the one already stored, store the new distance (it's possible we see the same point again, but from another direction)
- * if the next point is not already in the queue of points to be checked, add it to the queue
+     * if it's outside of map or too high from the current elevation, skip it,
+     * if it's already visited, skip it,
+     * calculate the distance as: distance of the current point + 1
+     * if the new next point's distance is smaller than the one already stored, store the new distance (it's possible we see the same point again, but from another direction)
+     * if the next point is not already in the queue of points to be checked, add it to the queue
 
 And that's it. Just let it loop until it runs out of points to check, then read the distance of the end point. Worked like a charm for both example and full input data.
 
