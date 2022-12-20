@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import ast
+
 defdebug=False
 
 
@@ -75,9 +77,9 @@ class Signal:
                 if not newline:
                     break;
                 self.count+=1
-                self.left.append(eval(newline.strip()))
+                self.left.append(ast.literal_eval(newline.strip()))
                 # not checking if the next line exists
-                self.right.append(eval(inputfile.readline().strip()))
+                self.right.append(ast.literal_eval(inputfile.readline().strip()))
                 inputfile.readline()
     
 
@@ -111,7 +113,7 @@ for i in range(1,smallsignal.count+1):
         if defdebug: print(f"Message {i} in the right order\n")
     else:
         if defdebug: print(f"Message {i} in the wrong order\n")
-print("\n\nPart 1, sum of indices: ",sumindices)
+print("\n\nSample data, sum of indices: ",sumindices)
 
 
 bigsignal=Signal("13-input.txt")
@@ -123,4 +125,4 @@ for i in range(1,bigsignal.count+1):
         if defdebug: print(f"Message {i} in the right order\n")
     else:
         if defdebug: print(f"Message {i} in the wrong order\n")
-print("\n\nPart 2, sum of indices: ",sumindices)
+print("\n\nReal data, sum of indices: ",sumindices)

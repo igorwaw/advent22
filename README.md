@@ -53,8 +53,7 @@ Python seemed like a natural choice. String slicing for parsing input data, set 
 
 #### 7. No Space Left On Device
 
-That one was tough. I decided to reconstruct the directory structure, traverse it recursively and calculate the sizes. It turned out I also needed two other data structures, a dict with directory name as a key and size as a value
-and another dict with size as a key and name as a value. I don't really like my code, it's neither very fast nor very readable, but I didn't have time to rewrite it.
+That one was tough. I decided to reconstruct the directory structure, traverse it recursively and calculate the sizes. It turned out I also needed two other data structures, a dict with directory name as a key and size as a value and another dict with size as a key and name as a value. I don't really like my code, it's neither very fast nor very readable, but I didn't have time to rewrite it.
 
 #### 8. Treetop Tree House
 
@@ -95,8 +94,8 @@ Dijkstra algorithm in C++. This was so far the most complicated, see the separat
 
 #### 13. Distress Signal
 
-I'm now convinced that the Advent's author is a Python developer. Input data was exactly the format of Python list, so simply doing: eval(newline(strip())
-was enough to read the input. Then, the first part wasn't particularly hard either, and second was even easier. The key was to realise that I need to use a 3-value logic, eg.:
+I'm now convinced that the Advent's author is a Python developer. Input data was exactly the format of Python list, so simply doing:
+literal_eval(newline.strip()) was enough to read the input. Then, the first part wasn't particularly hard either, and second was even easier. The key was to realise that I need to use a 3-value logic, eg.:
 * -1 means the left item is smaller
 * +1 means the right item is smaller
 * 0 means they are equal and I need to check the next item
