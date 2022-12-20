@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from collections.abc import Callable
 from math import lcm
-
+from tqdm import tqdm
 
 Operation = Callable[[int], int]
 
@@ -89,10 +89,12 @@ def do_part(rounds, divisor, filename):
     monkeys=readfile(filename)
     mod_lcm=lcm(*[monkey.test for monkey in monkeys])
     #print("LCM: ", mod_lcm)
-    for i in range(0,rounds):
+    for i in tqdm(range(rounds)):
         do_round(monkeys, divisor, mod_lcm)
     business=get_monkey_business(monkeys)
     print("Monkey business: ", business)
 
+print("Part 1:")
 do_part(rounds=20, divisor=3, filename="11-input.txt")
+print("\nPart 2:")
 do_part(rounds=10000, divisor=None, filename="11-input.txt")

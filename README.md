@@ -21,7 +21,12 @@ All other programs should work with any Python3 (tested with 3.6.8 and 3.10.8)
 
 Extra Python libraries:
 * treelib for task 7
-* pygame for task 9
+* pygame for task 9 (visualization)
+* tqdm for task 11 (progress bar)
+
+## Sources
+
+I added some improvements based on https://aoc.just2good.co.uk/ - but only after doing my own version first. Check out the Python Journey for some cool tricks.
 
 ## Tasks
 
