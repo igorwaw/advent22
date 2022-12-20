@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from functools import cmp_to_key
+import ast
 
 filename="13-input.txt"
 defdebug=False
@@ -74,7 +75,7 @@ with open(filename) as inputfile:
     for line in inputfile:
         line=line.strip()
         if line=="": continue
-        message.append(eval(line))
+        message.append(ast.literal_eval(line))
 
 
 message.append(packet1)
