@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
 import ast
+from functools import cmp_to_key
+
+filename="13-input.txt"
 
 defdebug=False
-
 
 
 # works on ints and (nested) lists of ints
@@ -19,7 +21,8 @@ def listcompare(left, right) -> int:
             return 1
         else:
             return 0
-    # one integer, one list
+    # one integer, one list - pack integer into single-element
+    # list and recurse
     if isinstance(left, int) and not isinstance(right, int):
         if defdebug: print("    left integer, right list")
         left=[left]
@@ -84,8 +87,10 @@ class Signal:
     
 
     def print(self):
-        for i in range(len(self.left)):
-            print(f"{i+1} Left: {self.left[i]}   right: {self.right[i]}")
+        i=0
+        for leftval,rightval in zip(self.left,self.right):
+            i+=1
+            print(f"{i} Left: {leftval}   right: {rightval}")
 
 
     def rightorder(self, index: int) ->bool:
@@ -101,28 +106,28 @@ class Signal:
 
 
 
-
-
-smallsignal=Signal("13-small.txt")
-#smallsignal.print()
+signal=Signal(filename)
 sumindices=0
-for i in range(1,smallsignal.count+1):
-    isright=smallsignal.rightorder(i)
+for i in range(1,signal.count+1):
+    isright=signal.rightorder(i)
     if (isright):
         sumindices+=i
         if defdebug: print(f"Message {i} in the right order\n")
     else:
         if defdebug: print(f"Message {i} in the wrong order\n")
-print("\n\nSample data, sum of indices: ",sumindices)
+print("Part 1, sum of indices: ",sumindices)
 
 
-bigsignal=Signal("13-input.txt")
-sumindices=0
-for i in range(1,bigsignal.count+1):
-    isright=bigsignal.rightorder(i)
-    if (isright):
-        sumindices+=i
-        if defdebug: print(f"Message {i} in the right order\n")
-    else:
-        if defdebug: print(f"Message {i} in the wrong order\n")
-print("\n\nReal data, sum of indices: ",sumindices)
+# part 2 - we need complete data without the left/right division
+# plus 2 extra packets
+packet1=[[2]]
+packet2=[[6]]
+
+message=signal.left+signal.right+[packet1, packet2]
+message.sort(key=cmp_to_key(listcompare))
+pos1=message.index(packet1)+1
+pos2=message.index(packet2)+1
+
+
+print("Part 2, decoded key: ", pos1*pos2)
+
