@@ -44,3 +44,4 @@ similar as in part 2: for every tree, try to check in each direction if it's vis
 At first I thought it was so easy that I decided to add visualization with pygame. Turned out that calculating tail position was prone to strange logic errors which meant it worked in ALMOST all circumstances. Which means it wasn't as easy as I thought, but at least the visualization helped with debugging. And moving from part
 1 to part 2 wasn't hard.
 
+![screenshot](https://github.com/igorwaw/advent22/blob/main/img/day9.png)
