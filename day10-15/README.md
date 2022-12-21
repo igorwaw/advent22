@@ -104,7 +104,9 @@ Instead, considered it a problem of finding distance on a map, with Dijkstra's a
 - calculate distance from the start point to every point, using the rules given (which means many points will be inaccessible)
 - then count how many points accessible points there are between the start point and the lowest rock.
 But I couldn't get right results. Rules of finding the next possible point need to be modified of course, I tried a few ways but I always got
-either too little or too much accessible points. I can now see that it would work for part 2 though. Pity, I even had a visualization.
+either too little or too much accessible points. I can now see that it would work for part 2 though. Pity, I even had a visualization:
+
+![screenshot](https://github.com/igorwaw/advent22/blob/main/img/day14.png)
 
 So instead I thought: what's the size of the brute force solution? There's no exponential growth here, even on the large map 
 it's only thousands of iterations, not billions. Plus, I don't need to store the map. I used sets to store rock and sand positions only
