@@ -12,7 +12,8 @@ required because I felt like it, for others I went straight to the point.
 ![C](https://img.shields.io/badge/C-C99-green) 
 ![C++](https://img.shields.io/badge/C++-C++11-green)
 
-Task 6 and 8 solved with C. I used C99 standard and only tested with GCC 8.5.0 and 12.2.0, but it should work with any C compiler.
+Task 6 and 8 solved with C. I used C99 standard (mostly for inititialization in loops and //comments),
+also compiles as newer amended versions C11 and C17. Tested with GCC 8.5.0 and 12.2.0, but should work with any C compiler. 
 
 Task 12 solved with C++. I used C++11 standard. It also compiles as amended/experimental newer versions (14, 17 and 2a).
 
