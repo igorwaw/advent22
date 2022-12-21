@@ -21,8 +21,8 @@ def read_input() -> set( (int,int) ):
             i=0
             while True:
                 try:
-                    x1, y1=onerockline[i].split(',')
-                    x2, y2  =onerockline[i+1].split(',')
+                    x1, y1 = onerockline[i].split(',')
+                    x2, y2 = onerockline[i+1].split(',')
                 except IndexError:
                     break;
                 i+=1
@@ -36,15 +36,9 @@ def read_input() -> set( (int,int) ):
 
 
 
-
-
-
-
 ################ INITIALIZATION #############
 
-
 rocks: set =read_input()
-
 sand=set()
 
 # calculate max height of sand before it starts dropping into the abyss
@@ -54,7 +48,7 @@ print ("max sand height: ", max_sand_height)
 
 # for part 2
 max_sand_height2=max_sand_height+2 # max height2
-rocks.update( { (x,max_sand_height2) for x in range(1000)  } ) # layer of rock at the bottom
+rocks.update( { (x,max_sand_height2) for x in range(1000)  } ) # add layer of rock at the bottom
 
 
 
@@ -86,14 +80,14 @@ while not part2_filled: # iterate over all sand
         y+=1
         if (not part1_filled) and (y>max_sand_height):
             answer_part1=sand_count-1 # the last grain overflowed
-            #print ("found answered for part 1: ", answer_part1)
+            #print ("found answer for part 1: ", answer_part1)
             part1_filled=True
 
         stopped=True # assume the path is blocked unless proven otherwise
 
         for deltax in (0,-1,+1):
             #print (f"  trying {x+deltax},{y}")
-            if ((x+deltax,y) not in rocks) and ((x+deltax,y) not in sand):
+            if ((x+deltax,y) not in rocks) and ((x+deltax,y) not in sand): # found clear path
                 x+=deltax
                 stopped=False
                 break;
