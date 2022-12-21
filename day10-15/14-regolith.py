@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-from collections import defaultdict
 
-FILENAME="14-small.txt"
+FILENAME="14-input.txt"
 
 STARTSAND=(500,0)
 
+STATITERATIONS=10000 # how often to print stats
 
 ###################  FUNCTIONS ######################
 
@@ -41,24 +41,56 @@ def read_input() -> set( (int,int) ):
 ################ INITIALIZATION #############
 
 
+rocks: set =read_input()
 
-rocks=read_input()
-print(rocks)
+sand=set()
 
 # calculate max height of sand before it starts dropping into the abyss
 # equals to the vertical position of the lowest rock
 max_sand_height=max( (y for _,y in rocks) )
-#print ("max sand height: ", max_sand_height)
+print ("max sand height: ", max_sand_height)
 
-
+notfilled=True
+sand_count=0
+iterations=0
 
 ###################  MAIN LOOP ######################
-#while running:
 
 
+while notfilled: # iterate over all sand
+    # create new grain
+    sand_count+=1
+    #print("Grain ",sand_count)
+    x,y=STARTSAND
+    stopped=False
+    while not stopped: #iterate over current grain of sand
+        # check number of iterations for stats
+        iterations+=1
+        if iterations%STATITERATIONS==0:
+            print(f"At iteration {iterations}, number of grains {sand_count}")
+        # check the grain
+        prev_x, prev_y = x,y
+        y+=1
+        if y>max_sand_height:
+            notfilled=False
+            break
+        stopped=True # assume the path is blocked unless proved otherwise
+        for deltax in (0,-1,+1):
+            #print (f"  trying {x+deltax},{y}")
+            if ((x+deltax,y) not in rocks) and ((x+deltax,y) not in sand):
+                x+=deltax
+                stopped=False
+                break;
+        if (stopped):
+            #print(f"   stopped at {prev_x},{prev_y}")
+            sand.add((prev_x,prev_y))
 
+
+sand_count-=1 # the last grain overflowed
 
 ############# REGOLITH: ENDGAME  ##################
 
 
-#print("Grains of sand: ", get_sand_count() )
+print("Grains of sand: ", sand_count )
+#print("Rocks: ", rocks )
+#print("Sand: ", sand )
