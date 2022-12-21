@@ -1,9 +1,3 @@
-
-Extra Python libraries:
-* treelib for task 7
-* pygame for task 9
-
-
 # 1. Calorie counting
 
 Nothing special here, quick and dirty Python.
