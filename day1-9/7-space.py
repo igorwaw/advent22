@@ -13,7 +13,7 @@ REQUIREDSPACE=30000000
 # class for representing file or dir in the directory tree
 # size 0 = size unknown
 # type = f for file, d for directory
-class FSnode():
+class FSnode:
     def __init__(self, type, size=0):
         self.type = type
         self.size = size

@@ -3,6 +3,9 @@
 6-signal
 8-forest
 .vscode/launch.json
+wynik
 12-hillclimbing/
 12-hillclimbing-ver2/
 12-hillclimbing-ver3/wynik
+garbage/
+__pycache__/
