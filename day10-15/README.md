@@ -107,5 +107,7 @@ But I couldn't get right results. Rules of finding the next possible point need 
 either too little or too much accessible points. 
 
 So instead I thought: what's the size of the brute force solution? There's no exponential growth here, even on the large map 
-it's only thousands of iterations, not billions. Plus, I don't need to store the map. I used sets to store rock positions only (fast and easy
-checking if the position is in the set).
+it's only thousands of iterations, not billions. Plus, I don't need to store the map. I used sets to store rock and sand positions only
+(fast and easy checking if the position is in the set).
+
+It worked OK for part 1. Part 2 only required adding a layer of rock and a new stop condition,
