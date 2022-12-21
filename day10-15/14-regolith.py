@@ -5,7 +5,9 @@ FILENAME="14-input.txt"
 
 STARTSAND=(500,0)
 
-STATITERATIONS=10000 # how often to print stats
+STATITERATIONS=100000 # how often to print stats
+MAXITERATIONS=10000000
+printmap=True # print part of map at the end
 
 ###################  FUNCTIONS ######################
 
@@ -50,31 +52,45 @@ sand=set()
 max_sand_height=max( (y for _,y in rocks) )
 print ("max sand height: ", max_sand_height)
 
-notfilled=True
+# for part 2
+max_sand_height2=max_sand_height+2 # max height2
+rocks.update( { (x,max_sand_height2) for x in range(1000)  } ) # layer of rock at the bottom
+
+
+
+part1_filled=False
+part2_filled=False
 sand_count=0
 iterations=0
 
 ###################  MAIN LOOP ######################
 
 
-while notfilled: # iterate over all sand
+while not part2_filled: # iterate over all sand
     # create new grain
     sand_count+=1
     #print("Grain ",sand_count)
     x,y=STARTSAND
     stopped=False
     while not stopped: #iterate over current grain of sand
-        # check number of iterations for stats
+        # check number of iterations for stats and safety check
         iterations+=1
+        if iterations>MAXITERATIONS:
+            print("Max iterations exceeded")
+            part2_filled=True
+            break
         if iterations%STATITERATIONS==0:
             print(f"At iteration {iterations}, number of grains {sand_count}")
         # check the grain
         prev_x, prev_y = x,y
         y+=1
-        if y>max_sand_height:
-            notfilled=False
-            break
-        stopped=True # assume the path is blocked unless proved otherwise
+        if (not part1_filled) and (y>max_sand_height):
+            answer_part1=sand_count-1 # the last grain overflowed
+            #print ("found answered for part 1: ", answer_part1)
+            part1_filled=True
+
+        stopped=True # assume the path is blocked unless proven otherwise
+
         for deltax in (0,-1,+1):
             #print (f"  trying {x+deltax},{y}")
             if ((x+deltax,y) not in rocks) and ((x+deltax,y) not in sand):
@@ -84,13 +100,27 @@ while notfilled: # iterate over all sand
         if (stopped):
             #print(f"   stopped at {prev_x},{prev_y}")
             sand.add((prev_x,prev_y))
+    if STARTSAND in sand: # starting point is blocked
+        answer_part2=sand_count
+        part2_filled=True
 
-
-sand_count-=1 # the last grain overflowed
 
 ############# REGOLITH: ENDGAME  ##################
 
 
-print("Grains of sand: ", sand_count )
-#print("Rocks: ", rocks )
-#print("Sand: ", sand )
+
+
+if (printmap):
+    # print part of map
+    for y in range(0,50):
+        for x in range(450, 550):
+            if (x,y) in rocks: c='█'
+            elif (x,y) in sand: c='o'
+            else: c='.'
+            print(c, end='')
+        print()
+
+
+print('\n')
+print("Part 1, grains of sand: ", answer_part1 )
+print("Part 2, grains of sand: ", answer_part2 )
