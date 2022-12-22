@@ -103,6 +103,7 @@ Instead, considered it a problem of finding distance on a map, with Dijkstra's a
 - create 2D array for the map
 - calculate distance from the start point to every point, using the rules given (which means many points will be inaccessible)
 - then count how many points accessible points there are between the start point and the lowest rock.
+
 But I couldn't get right results. Rules of finding the next possible point need to be modified of course, I tried a few ways but I always got
 either too little or too much accessible points. So, I did another version instead (see below). Later I thought it would work for part 2 though.
 And it does. I even have a visualization:
