@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# This one does both parts
+
 
 FILENAME="14-input.txt"
 
@@ -106,7 +108,7 @@ while not part2_filled: # iterate over all sand
 
 if (printmap):
     # print part of map
-    for y in range(0,50):
+    for y in range(0,40):
         for x in range(450, 550):
             if (x,y) in rocks: c='█'
             elif (x,y) in sand: c='o'

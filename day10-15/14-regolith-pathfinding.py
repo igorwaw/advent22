@@ -5,10 +5,12 @@ import pygame
 from mappoint import Mappoint, PointWithDistance
 from queue import PriorityQueue
 
+# this one only does part 2
+
 FILENAME="14-input.txt"
 # size of cave
 WIDTH=1000
-HEIGHT=200
+HEIGHT=250
 ELSIZE=30 # font size
 
 
@@ -21,7 +23,7 @@ ROCK=999
 
 
 # for visualization
-FPS=100
+UPDATE_ITER=1000
 
 colormap=defaultdict(lambda : (20,20,200)) # sets default color
 colormap[MAXPATH]=(0,0,0)
@@ -48,7 +50,7 @@ def write_below(message):
     """ prints a message at the bottom of the window """
     text = font.render(message, True, (200,200,200), (0,0,0))
     textRect = text.get_rect()
-    textRect.center = (WIDTH // 2, HEIGHT-(ELSIZE*4))
+    textRect.center = (WIDTH // 2, HEIGHT-(ELSIZE))
     screen.blit(text, textRect)
 
 def draw_screen():
@@ -114,25 +116,25 @@ def add_next_step(new_x: int, new_y: int, newdistance: int):
     # normally we should check if new distance is smaller than old but in this case we can
     # only reach every point once
     cavemap[new_y][new_x]=newdistance 
-    print(f"next point to check: {new_x},{new_y} distance {newdistance}")
+    #print(f"next point to check: {new_x},{new_y} distance {newdistance}")
     to_check.put(PointWithDistance(newdistance,newpoint))
     
 
 
 def findpath_step():
     """ does one step of Dijkstra algorithm  """
-    global to_check,cavemap, part1done
+    global to_check,cavemap, part2done
     if to_check.empty():
         #raise IndexError("no more points to check")
+        part2done=True
         return
     currentpoint=to_check.get()
     #visited.add(currentpoint.point)
     #print("Checking ",currentpoint)
     
     # check if we are in the abyss
-    if currentpoint.distance>max_sand_height:
-        part1done=True
-        return
+    #if currentpoint.distance>max_sand_height:
+    #    part1done=True
     # check point below
 
     new_x=currentpoint.point.x
@@ -161,7 +163,7 @@ cavemap= [[MAXPATH for i in range(WIDTH)] for j in range(HEIGHT)]
 #visited=set()
 to_check=PriorityQueue()
 to_check.put( PointWithDistance(0,STARTSAND) )
-part1done=False
+part2done=False
 
 rocks=read_input()
 #print(rocks)
@@ -171,22 +173,36 @@ for rock in rocks:
 max_sand_height=get_sand_height()
 print ("max sand height: ", max_sand_height)
 
+# add layer of rocks at the bottom
+add_rock( (0,max_sand_height+2, WIDTH-1, max_sand_height+2) )
 
 
 ###################  MAIN LOOP ######################
+counter=0
+part2done=False
+onemoreupdateneeded=True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: running=False
 
-    if not part1done:
+    if not part2done:
         findpath_step() # do one step of simulation
-        draw_screen()
     
-    grains=get_sand_count()
-    write_below(f"Sand count: {grains}")
-    pygame.display.flip()
-    clock.tick(FPS) # wait here
+    if part2done and onemoreupdateneeded:  # redraw screen one more time
+        print("here")
+        onemoreupdateneeded=False
+        draw_screen()
+        grains=1+get_sand_count()
+        write_below(f"Answer found: Sand count: {grains}")
+        pygame.display.flip()
 
+    if counter%UPDATE_ITER==0 and not part2done:
+        draw_screen()
+        grains=get_sand_count()
+        write_below(f"Current sand count: {grains}")
+        pygame.display.flip()
+    #clock.tick(FPS) # wait here
+    counter+=1
 
 ############# REGOLITH: ENDGAME  ##################
 pygame.quit()
