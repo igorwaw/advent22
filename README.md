@@ -21,13 +21,14 @@ Task 2 requires Python 3.10 or higher because I used "match" statement. Task 11:
 All other programs should work with older versions of Python3 as well.
 
 Extra Python libraries:
+
 * treelib for task 7
 * pygame for task 9 (visualization)
 * tqdm for task 11 (progress bar)
 
 ## Sources
 
-I added some improvements based on https://aoc.just2good.co.uk/ - but only after doing my own version first. Check out the Python Journey for some cool tricks.
+I added some improvements based on <https://aoc.just2good.co.uk/> - but only after doing my own version first. Check out the Python Journey for some cool tricks.
 
 ## Tasks
 
