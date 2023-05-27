@@ -16,9 +16,7 @@ SCREENHEIGHT=6
 
 def get_strength(cycle,register):
     if (cycle==FIRSTCYCLE) or ((cycle-FIRSTCYCLE)%NEXTCYCLE==0):
-            strength=cycle*register
-            #print(f"Cycle {n} current signal strength {strength}")
-            return strength
+        return cycle*register
     else:
         return 0
 
@@ -42,7 +40,7 @@ n=0
 regX=1
 sumstrength=0
 pixelbuf=[]
-for i in range(0,SCREENHEIGHT):
+for i in range(SCREENHEIGHT):
     pixelbuf.append(list(SCREENWIDTH*' '))
 
 with open(INPUTFILE) as inputfile:
@@ -66,5 +64,5 @@ with open(INPUTFILE) as inputfile:
 print("\n--------- THE END -----------------")
 print(f"Cycle {n} sum {sumstrength}")
 
-for i in range(0,SCREENHEIGHT):
+for i in range(SCREENHEIGHT):
     print(''.join(pixelbuf[i]))

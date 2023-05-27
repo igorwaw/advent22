@@ -8,7 +8,7 @@ moves=[]
 
 def readfile(filename):
     doing_moves=False
-    with open(INPUTFILE) as inputfile:
+    with open(filename) as inputfile:
         for line in inputfile:
             if line.strip()=='':
                 doing_moves=True
@@ -45,7 +45,7 @@ def do_moves_v1():
     for move in moves:
         num,stack_from,stack_to=move
         #print ("Moving ",num,"elements from", stacks[stack_from], "to", stacks[stack_to] )
-        for i in range(0,num):
+        for _ in range(num):
             stacks[stack_to].append( stacks[stack_from].pop() )
 
 
@@ -54,7 +54,7 @@ def do_moves_v2():
         num,stack_from,stack_to=move
         tempstack=[]
         #print ("Moving ",num,"elements from", stacks[stack_from], "to", stacks[stack_to] )
-        for i in range(num):
+        for _ in range(num):
             element=stacks[stack_from].pop()
             tempstack.append(element)
         tempstack.reverse()
@@ -65,14 +65,14 @@ def do_moves_v2():
         
 def give_answer():
     answer=""
-    for i in range(0,NUMSTACKS):
+    for i in range(NUMSTACKS):
         answer+=stacks[i].pop() 
     return answer
 
 
 
 # part 1
-stacks=[ [] for i in range(NUMSTACKS) ]
+stacks=[ [] for _ in range(NUMSTACKS) ]
 readfile(INPUTFILE)
 do_moves_v1()
 print("Part 1: ", give_answer())
@@ -80,7 +80,7 @@ print("Part 1: ", give_answer())
 # part 2
 # clear data and read file again
 stacks.clear()
-stacks=[ [] for i in range(NUMSTACKS) ]
+stacks=[ [] for _ in range(NUMSTACKS) ]
 moves.clear()
 readfile(INPUTFILE)
 
