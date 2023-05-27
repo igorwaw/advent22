@@ -65,7 +65,6 @@ def listcompare(left, right) -> int:
             return result
         
 
-#@dataclass
 class Signal:
     left:  'list[list]'
     right: 'list[list]'
@@ -87,20 +86,15 @@ class Signal:
     
 
     def print(self):
-        i=0
-        for leftval,rightval in zip(self.left,self.right):
-            i+=1
+        for i, (leftval, rightval) in enumerate(zip(self.left,self.right), start=1):
             print(f"{i} Left: {leftval}   right: {rightval}")
 
 
-    def rightorder(self, index: int) ->bool:
+    def rightorder(self, index: int) -> bool:
         leftval=self.left[index-1]
         rightval=self.right[index-1]
         if defdebug: print(f"{index} Left: {leftval}   right: {rightval}")
-        if listcompare(leftval, rightval)<0:
-            return True
-        else:
-            return False
+        return listcompare(leftval, rightval) < 0
         
 
 

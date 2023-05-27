@@ -54,10 +54,7 @@ def create_path(cwd, filename):
             continue
         else:
             path = path+"/"+dir
-    if path == "":
-        parentpath = "/"
-    else:
-        parentpath = path
+    parentpath = "/" if path == "" else path
     path = path+"/"+filename
     return path, parentpath
 
